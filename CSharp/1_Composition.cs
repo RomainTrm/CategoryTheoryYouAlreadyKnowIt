@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace CSharp
 {
     public class Composition

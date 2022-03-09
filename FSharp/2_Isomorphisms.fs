@@ -1,6 +1,5 @@
 module Isomorphisms
 
-open FsCheck
 open FsCheck.Xunit
 
 type Either<'TLeft, 'TRight> =
