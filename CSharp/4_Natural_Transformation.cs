@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FsCheck;
 using Xunit;
+// ReSharper disable All
 
 namespace CSharp
 {

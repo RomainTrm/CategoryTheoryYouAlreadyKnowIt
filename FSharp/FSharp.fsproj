@@ -12,6 +12,8 @@
         <Compile Include="2_Isomorphisms.fs" />
         <Compile Include="3_Functors.fs" />
         <Compile Include="4_Natural_Transformation.fs" />
+        <Compile Include="5_Product.fs" />
+        <Compile Include="6_Coproduct.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

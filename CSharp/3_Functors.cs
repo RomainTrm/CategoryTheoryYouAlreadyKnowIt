@@ -2,6 +2,7 @@ using System;
 using FsCheck;
 using Xunit;
 
+// ReSharper disable All
 namespace CSharp
 {
     public class Functors
