@@ -8,20 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="1_Composition.fs" />
-        <Compile Include="2_Isomorphisms.fs" />
-        <Compile Include="3_Functors.fs" />
-        <Compile Include="4_Natural_Transformation.fs" />
-        <Compile Include="5_Product.fs" />
-        <Compile Include="6_Coproduct.fs" />
-        <Compile Include="7_Monoid.fs" />
-        <Compile Include="8_Monad.fs" />
-        <Compile Include="Program.fs" />
+        <Compile Include="Tests.fs"/>
+        <Compile Include="Program.fs"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>

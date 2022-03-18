@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp", "CSharp\CSharp.csp
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp", "FSharp\FSharp.fsproj", "{16B061FB-21DE-4859-956B-FE1A8883AFCC}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SocratesFSharp", "SocratesFSharp\SocratesFSharp.fsproj", "{1CB5E979-1F95-422A-A358-0D2181E7706A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocratesCSharp", "SocratesCSharp\SocratesCSharp.csproj", "{81D4F154-BC81-44D4-AFB3-DCFD29063831}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{16B061FB-21DE-4859-956B-FE1A8883AFCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16B061FB-21DE-4859-956B-FE1A8883AFCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B061FB-21DE-4859-956B-FE1A8883AFCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CB5E979-1F95-422A-A358-0D2181E7706A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB5E979-1F95-422A-A358-0D2181E7706A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB5E979-1F95-422A-A358-0D2181E7706A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB5E979-1F95-422A-A358-0D2181E7706A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D4F154-BC81-44D4-AFB3-DCFD29063831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D4F154-BC81-44D4-AFB3-DCFD29063831}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D4F154-BC81-44D4-AFB3-DCFD29063831}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D4F154-BC81-44D4-AFB3-DCFD29063831}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
