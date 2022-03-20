@@ -50,4 +50,6 @@ let ``Left identity`` (x : int) =
 [<Property>]
 let ``Right identity`` (x : int) =
     let idRight = safeIsPositive >> bind neutral
-    idRight x = safeIsPositive x 
+    idRight x = safeIsPositive x
+    
+// Associativity, neutral element & identity, Result is a Monoid

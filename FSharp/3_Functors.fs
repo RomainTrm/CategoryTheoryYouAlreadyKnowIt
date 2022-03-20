@@ -25,7 +25,7 @@ module Functors_Result =
     let intToString (i : int) = i.ToString()
     let isPositiveString = isPositive >> intToString // not pure, should not compose
 
-    type Error = NotInteger | NotPositive
+    type Error = NotPositive
 
     let safeIsPositive i = if i > 0 then Ok i else Error NotPositive
 
