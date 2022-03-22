@@ -1,3 +1,4 @@
+using System;
 using FsCheck;
 using Xunit;
 // ReSharper disable All
@@ -31,5 +32,10 @@ namespace CSharp
                     c => g(c) == snd(h(c)))
                 .QuickCheckThrowOnFailure();
         }
+
+        static Func<C, (int, string)> Factorizer(
+            Func<C, int> f,
+            Func<C, string> g) =>
+            c => (f(c), g(c));
     }
 }

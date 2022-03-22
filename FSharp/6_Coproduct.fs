@@ -21,15 +21,12 @@ let ``[f; g]`` either : C =
     | Left x -> f x
     | Right x -> g x
     
-
 [<Property>]
-let ``f is h after ind`` (x : A) =
-    // f = [f; g] after ind
+let ``f is [f; g] after ind`` (x : A) =
     f x = (ind >> ``[f; g]``)  x
 
 [<Property>]
-let ``g is h after inr`` (x : B) =
-    // g = [f; g] after inr
+let ``g is [f; g] after inr`` (x : B) =
     g x = (inr >> ``[f; g]``) x
 
 

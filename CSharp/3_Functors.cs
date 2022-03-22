@@ -46,6 +46,7 @@ namespace CSharp
                 left => Either<TLeftOut, TRight>.Left(morphism(left)), 
                 right => Either<TLeftOut, TRight>.Right(right));
         
-        public Either<string, Error> SafeIsPositiveString(int value) => MapLeft(SafeIsPositive(value), IntToString);
+        public Either<string, Error> SafeIsPositiveString(int value) => 
+            MapLeft(SafeIsPositive(value), IntToString);
     }
 }

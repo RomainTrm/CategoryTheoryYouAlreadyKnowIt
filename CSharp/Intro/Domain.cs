@@ -7,14 +7,21 @@ namespace CSharp.Intro
     public class Domain
     {
         public Amount GetTotalAmountOfSuspiciousOperations(IReadOnlyList<AccountLine> lines)
-            => GetTotalAmount(GetSuspiciousOperations(lines)); // Composition
-        
+        {
+            var suspiciousOperations = GetSuspiciousOperations(lines);
+            return GetTotalAmount(suspiciousOperations); // Composition
+        }
+
         public IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
-                .SelectMany(line => line.Amount.Value > 10_000m // Where 
-                    ? new List<AccountLine> { line }            // Monad & Bind
+                .Select(line => (line, isSuspicious: IsSuspiciousAmount(line))) // Product
+                .SelectMany(x => x.isSuspicious                    // Where 
+                    ? new List<AccountLine> { x.line }                          // Monad & Bind
                     : new List<AccountLine>())
-                .ToList();                                      // Composition
+                .ToList();                                                      // Composition
+
+        private static bool IsSuspiciousAmount(AccountLine line) => 
+            line.Amount.Value > 10_000m;
 
         public Amount GetTotalAmount(IReadOnlyList<AccountLine> lines) =>
             lines
