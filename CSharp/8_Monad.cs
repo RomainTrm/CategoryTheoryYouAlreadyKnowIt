@@ -42,7 +42,6 @@ namespace CSharp
         public static Either<TLeftOut, TRight> BindLeft<TLeftIn, TLeftOut, TRight>(
             this Either<TLeftIn, TRight> either, 
             Func<TLeftIn, Either<TLeftOut, TRight>> morphism) =>
-            JoinLeft(MapLeft(either, morphism));
-
+            either.MapLeft(morphism).JoinLeft();
     }
 }

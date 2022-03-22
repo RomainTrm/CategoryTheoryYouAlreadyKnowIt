@@ -15,7 +15,7 @@ namespace CSharp.Intro
         public IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
                 .Select(line => (line, isSuspicious: IsSuspiciousAmount(line))) // Product
-                .SelectMany(x => x.isSuspicious                    // Where 
+                .SelectMany(x => x.isSuspicious                                 // Where 
                     ? new List<AccountLine> { x.line }                          // Monad & Bind
                     : new List<AccountLine>())
                 .ToList();                                                      // Composition
@@ -34,6 +34,6 @@ namespace CSharp.Intro
     public record Amount(decimal Value)
     {
         public static Amount Add(Amount left, Amount right) => new(left.Value + right.Value);
-        public static readonly Amount Zero = new Amount(0m);  // Monoid's Neutral element
+        public static readonly Amount Zero = new(0m);       // Monoid's Neutral element
     }
 }
