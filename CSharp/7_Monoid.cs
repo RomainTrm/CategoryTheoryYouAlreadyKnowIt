@@ -13,7 +13,7 @@ namespace CSharp
 
         public static readonly Validation NeutralElement = Validation.Valid;
 
-        public Validation Fold(Validation left, Validation right) =>
+        public static Validation Fold(Validation left, Validation right) =>
             (left, right) switch
             {
                 (Validation.Valid, Validation.Valid) => Validation.Valid,

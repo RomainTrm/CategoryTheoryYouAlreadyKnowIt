@@ -5,37 +5,28 @@ namespace CSharp
 {
     public class Isomorphisms
     {
-        private static Either<Unit, int> Maybe_to_either(Maybe<int> x) => x.Match(
-            Either<Unit, int>.Right,
-            () => Either<Unit, int>.Left(new Unit()));
-
-        private static Maybe<int> Either_to_maybe(Either<Unit, int> x) => x.Match(
-            _ => Maybe<int>.None(),
-            Maybe<int>.Some);
-
+        private static (T2, T1) Reverse<T1, T2>((T1, T2) x) => (x.Item2, x.Item1);
+        
         private static T Id<T>(T x) => x;
+        
+        private static (T1, T2) Isomorphism<T1, T2>((T1, T2) tuple) =>
+            Reverse(Reverse(tuple));
         
         [Fact]
         public void LeftIsomorphism()
         {
-            Maybe<int> Isomorphism(Maybe<int> maybe) =>
-                Either_to_maybe(Maybe_to_either(maybe));
-
             Prop.ForAll(
-                    MaybeGenerator.Gen<int>().ToArbitrary(),
-                    maybe => Isomorphism(maybe).Equals(Id(maybe)))
+                    Arb.From<int>(), Arb.From<string>(),
+                    (i, s) => Isomorphism((i, s)).Equals(Id((i, s))))
                 .QuickCheckThrowOnFailure();
         }
         
         [Fact]
         public void RightIsomorphism()
         {
-            Either<Unit, int> Isomorphism(Either<Unit, int> either) =>
-                Maybe_to_either(Either_to_maybe(either));
-                
             Prop.ForAll(
-                    EitherGenerator.Gen<Unit, int>().ToArbitrary(),
-                    either => Isomorphism(either).Equals(Id(either)))
+                    Arb.From<int>(), Arb.From<string>(),
+                    (i, s) => Isomorphism((s, i)).Equals(Id((s, i))))
                 .QuickCheckThrowOnFailure();
         }
     }

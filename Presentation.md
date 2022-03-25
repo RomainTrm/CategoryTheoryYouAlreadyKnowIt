@@ -81,6 +81,7 @@ let maybeHead = function
   - string through concat
   - list through concat
   - ...
+- Monoids compose: a product of monoid is also a monoid
 
 # 10 Monad
 

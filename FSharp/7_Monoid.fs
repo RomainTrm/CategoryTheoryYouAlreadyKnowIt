@@ -1,22 +1,7 @@
 namespace Monoid
 
 open FsCheck.Xunit
-open Xunit
 
-module Hours =
-    type Hour = int // from 0 to 23
-    let neutralElement = 24
-    let addHour left right = left + right % 24
-
-    [<Fact>]
-    let Identity () =
-        let id x = addHour x neutralElement
-        id 5 = 5
-        
-    [<Fact>]
-    let Associativity () =
-        addHour 5 (addHour 4 10) = addHour (addHour 5 4) 10
-        
 module ValidationEnum =
     type Validation = Valid | Invalid
     let neutralElement = Valid

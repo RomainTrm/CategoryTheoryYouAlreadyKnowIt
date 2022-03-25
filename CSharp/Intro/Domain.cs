@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Xunit;
+// ReSharper disable All
 
 namespace CSharp.Intro
 {
@@ -15,15 +17,16 @@ namespace CSharp.Intro
 
         private static IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => (line, isSuspicious: IsSuspiciousAmount(line))) // # 3 Functor & map
+                .Select(line => (line, amountState: EvaluateAmountState(line))) // # 3 Functor & map
                                                                                 // Product
-                .SelectMany(x => x.isSuspicious                                 // Where 
-                    ? new List<AccountLine> { x.line }                          // Monad & Bind
+                .Select(x => x.amountState == AmountState.Suspicious            // Where 
+                    ? new List<AccountLine> { x.line }                          // Endofunctor
                     : new List<AccountLine>())
+                .SelectMany(x => x)                                             // Monad: Flatten aka Join
                 .ToList();                                                      // # 1 Composition
 
-        private static bool IsSuspiciousAmount(AccountLine line) =>             // # 2 Morphisms: Loss of information
-            line.Amount.Value > 10_000m;
+        private static AmountState EvaluateAmountState(AccountLine line) =>             // # 2 Morphisms: Loss of information
+            line.Amount.Value > 10_000m ? AmountState.Suspicious : AmountState.Valid;
 
         private static Amount GetTotalAmount(IReadOnlyList<AccountLine> lines) =>
             lines
@@ -32,6 +35,8 @@ namespace CSharp.Intro
     }
 
     public record AccountLine(DateTime Date, Amount Amount);
+    
+    public enum AmountState { Valid, Suspicious }
 
     public record Amount(decimal Value)
     {
@@ -39,16 +44,51 @@ namespace CSharp.Intro
         public static readonly Amount Zero = new(0m);                       // Monoid's Neutral element
     }
     
-    // Todo : add tests
-
     public class DomainTests
     {
+        [Fact]
+        public void AmountEquals()
+        {
+            Assert.True(new Amount(3m) == new Amount(3m));
+            
+            Amount Id(Amount amount) => Amount.Add(amount, Amount.Zero);
+            Assert.True(new Amount(8m) == Id(new Amount(8m)));
+        }
+        
         [Fact]
         public void CaseOfEmptyList()
         {
             var lines = new List<AccountLine>();
             var total = Domain.GetTotalAmountOfSuspiciousOperations(lines);
             Assert.Equal(total, Amount.Zero);
+        }
+
+        [Fact]
+        public void CaseOfAllSuspicious()
+        {
+            var lines = new List<AccountLine>
+            {
+                new (DateTime.Today, new Amount(15_000m)),
+                new (DateTime.Today, new Amount(10_000.1m)),
+                new (DateTime.Today, new Amount(19_000m))
+            };
+            
+            var total = Domain.GetTotalAmountOfSuspiciousOperations(lines);
+            Assert.Equal(total, new Amount(15_000m + 10_000.1m + 19_000m));
+        }
+
+        [Fact]
+        public void CaseOfSomeSuspicious()
+        {
+            var lines = new List<AccountLine>
+            {
+                new (DateTime.Today, new Amount(15_000m)),
+                new (DateTime.Today, new Amount(10_000.1m)),
+                new (DateTime.Today, new Amount(9_999.999m))
+            };
+            
+            var total = Domain.GetTotalAmountOfSuspiciousOperations(lines);
+            Assert.Equal(total, new Amount(15_000m + 10_000.1m));
         }
     }
 }

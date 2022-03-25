@@ -30,17 +30,17 @@ let ``g is [f; g] after inr`` (x : B) =
     g x = (inr >> ``[f; g]``) x
 
 
-let convert (coproduct, c) = 
+let distribute (coproduct, c) = 
     match coproduct with
     | Left a -> Left (a, c)
     | Right b -> Right (b, c)
 
 [<Property>]
 let left (a : int) (c : bool) =
-    convert (Left a, c) = Left (a, c)
+    distribute (Left a, c) = Left (a, c)
 
 [<Property>]
 let right (b : string) (c : bool) =
-    convert (Right b, c) = Right (b, c)
+    distribute (Right b, c) = Right (b, c)
     
 // Example: convert a product (Amount, CheckNumber|CardNumber) into (Amount, CheckNumber)|(Amount, CardNumber)

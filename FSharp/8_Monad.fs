@@ -30,9 +30,13 @@ let join (result : Result<Result<'a, 'b>, 'b>) =
 let bind f = map f >> join
 
 // Does not compose, intToString expect an int, received a Result<int, Error>
-//let safeStringIsPositiveInt = safeStringToInt >> map safeIsPositive >> map intToString 
+//let safeStringIsPositiveInt = safeStringToInt >> map safeIsPositive >> map intToString
+
 //let safeStringIsPositiveInt = safeStringToInt >> map safeIsPositive >> join >> map intToString
 let safeStringIsPositiveInt = safeStringToInt >> bind safeIsPositive >> map intToString
+
+
+
 
 [<Property>]
 let associativity (x : string) =
