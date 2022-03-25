@@ -23,25 +23,26 @@
 - Composition: if morphisms ``f: a -> b`` and ``g: b -> c`` exists, then a morphism ``g.f: a -> c`` exists (read *g after f*)
 - Associativity: if morphisms ``f: a -> b``, ``g: b -> c`` and ``h: c -> d``, then ``h.(g.f) = (h.g).f``
 
-# 1.1 Identity
-
-- Identity: a morphism ``id: a -> a``, 
-  - left identity: ``f.id`` = ``f``
-  - right identity: ``id.f`` = ``f``
-  
-# 2 Morphism / Isomorphism (Abstraction)
+# 2 Morphism (Abstraction)
 
 - Most morphisms generates a loss of information (abstractions)
+
+# 1.1 Identity / Isomorphism
+
+- Identity: a morphism ``id: a -> a``,
+  - left identity: ``f.id`` = ``f``
+  - right identity: ``id.f`` = ``f``
+
 - When two morphisms:
   - ``f: a -> b`` and ``g: b -> a``
   - and ``f.g`` = ``idLeft`` and ``g.f`` = ``idRight``
-  - then it is a isomorphism
+  - then it is an isomorphism
 - Example of isomorphism:
   ```F#  
   let reverse (a, b) = (b, a)
   reverse >> reverse = id
   ```
-
+  
 # 3 Functor
 
 - A functor is a "morphism" between two categories
