@@ -1,25 +1,35 @@
 # 0 Disclaimer 
 
 - We're not mathematicians
+- Don't be shy, just ask, there is no stupid question
 - We're not Category Theory experts
+- We might not have the answer
 - Category Theory isn't mandatory to code in any language/paradigm
 - Goal of the session: highlight main concepts through code examples
 
-# 0 Business example 
+# 0.1 Why ?
+- Interest is to understand mathematical concept before language implementation
 
+# 0 Business example 
+- Classical code review, refactor and enumerate some Categorical concepts
 - Kind of business code example, several concepts visible
+
+# 0.1 What's Category Theory 
+- Category: objects and morphisms (arrows) to link them
 
 # 1 Composition
 
 - Core concept of Category Theory
-- Category: objects and morphisms (arrows) to link them
 - Composition: if morphisms ``f: a -> b`` and ``g: b -> c`` exists, then a morphism ``g.f: a -> c`` exists (read *g after f*)
 - Associativity: if morphisms ``f: a -> b``, ``g: b -> c`` and ``h: c -> d``, then ``h.(g.f) = (h.g).f``
+
+# 1.1 Identity
+
 - Identity: a morphism ``id: a -> a``, 
   - left identity: ``f.id`` = ``f``
   - right identity: ``id.f`` = ``f``
   
-# 2 Morphism / Isomorphism
+# 2 Morphism / Isomorphism (Abstraction)
 
 - Most morphisms generates a loss of information (abstractions)
 - When two morphisms:
