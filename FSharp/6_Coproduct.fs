@@ -42,3 +42,5 @@ let left (a : int) (c : bool) =
 [<Property>]
 let right (b : string) (c : bool) =
     convert (Right b, c) = Right (b, c)
+    
+// Example: convert a product (Amount, CheckNumber|CardNumber) into (Amount, CheckNumber)|(Amount, CardNumber)

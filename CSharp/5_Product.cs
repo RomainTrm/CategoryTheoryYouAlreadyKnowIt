@@ -15,13 +15,13 @@ namespace CSharp
         static int f(C c) => c.A;
         static string g(C c) => c.B;
 
-        static (int, string) h(C c) => (f(c), g(c));
+        static (int, string) f_and_g(C c) => (f(c), g(c));
 
         [Fact]
         public void f_is_fst_after_h()
         {
             Prop.ForAll(Arb.From<C>(),
-                    c => f(c) == fst(h(c)))
+                    c => f(c) == fst(f_and_g(c)))
                 .QuickCheckThrowOnFailure();
         }
         
@@ -29,7 +29,7 @@ namespace CSharp
         public void g_is_snd_after_h()
         {
             Prop.ForAll(Arb.From<C>(), 
-                    c => g(c) == snd(h(c)))
+                    c => g(c) == snd(f_and_g(c)))
                 .QuickCheckThrowOnFailure();
         }
 

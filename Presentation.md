@@ -14,13 +14,14 @@
 - Core concept of Category Theory
 - Category: objects and morphisms (arrows) to link them
 - Composition: if morphisms ``f: a -> b`` and ``g: b -> c`` exists, then a morphism ``g.f: a -> c`` exists (read *g after f*)
+- Associativity: if morphisms ``f: a -> b``, ``g: b -> c`` and ``h: c -> d``, then ``h.(g.f) = (h.g).f``
 - Identity: a morphism ``id: a -> a``, 
   - left identity: ``f.id`` = ``f``
   - right identity: ``id.f`` = ``f``
   
 # 2 Morphism / Isomorphism
 
-- Most morphisms generates a loss of information
+- Most morphisms generates a loss of information (abstractions)
 - When two morphisms:
   - ``f: a -> b`` and ``g: b -> a``
   - and ``f.g`` = ``idLeft`` and ``g.f`` = ``idRight``
@@ -56,6 +57,41 @@ let maybeHead = function
     | [] -> None
     | head::tail -> Some head
 ```
+
+# 5 Product
+# 6 Coproduct
+
+# 7 Monoid
+
+- 3 properties for monoids 
+  - category of a single element
+  - associativity
+  - neutral element
+- Examples :
+  - integers through addition
+  - integers through multiplication
+  - string through concat
+  - list through concat
+  - ...
+
+# 8 Monad
+
+- "A monad is a monoid in the category of endofunctor"
+- A list is:
+  - a monoid 
+  - a functor
+  - an endofunctor
+- The issue: given ``f: a -> b list`` and ``list: a list``, then mapping ``map f list`` returns ``b list list``
+- The missing element is a "flatten" capability (called ``join``)
+```F#
+// 'a list list -> 'a list
+let join = function
+    | [] -> []
+    | head::tail -> head@(join tail)
+```
+- By composing ``map`` and ``join``, we can obtain a method ``bind``
+- Given ``f: a -> b list`` and ``list: a list``, then binding ``bind f list`` returns ``b list``
+- So, the list is a monad (other examples, Maybe, Result, ...)
 
 
 # To add (?)
