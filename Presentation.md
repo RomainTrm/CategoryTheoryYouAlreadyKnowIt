@@ -7,27 +7,27 @@
 - Category Theory isn't mandatory to code in any language/paradigm
 - Goal of the session: highlight main concepts through code examples
 
-# 0.1 Why ?
+# 1 Why ?
 - Interest is to understand mathematical concept before language implementation
 
-# 0 Business example 
+# 2 Business example 
 - Classical code review, refactor and enumerate some Categorical concepts
 - Kind of business code example, several concepts visible
 
-# 0.1 What's Category Theory 
+# 3 What's Category Theory 
 - Category: objects and morphisms (arrows) to link them
 
-# 1 Composition
+# 4 Composition
 
 - Core concept of Category Theory
 - Composition: if morphisms ``f: a -> b`` and ``g: b -> c`` exists, then a morphism ``g.f: a -> c`` exists (read *g after f*)
 - Associativity: if morphisms ``f: a -> b``, ``g: b -> c`` and ``h: c -> d``, then ``h.(g.f) = (h.g).f``
 
-# 2 Morphism (Abstraction)
+# 5 Morphism (Abstraction)
 
 - Most morphisms generates a loss of information (abstractions)
 
-# 1.1 Identity / Isomorphism
+# 6 Identity / Isomorphism
 
 - Identity: a morphism ``id: a -> a``,
   - left identity: ``f.id`` = ``f``
@@ -43,7 +43,7 @@
   reverse >> reverse = id
   ```
   
-# 3 Functor
+# 7 Functor
 
 - A functor is a "morphism" between two categories
 - It lift an objet *a* of a category __A__ into a category __F__, notation is __Fa__
@@ -58,7 +58,7 @@
   ```
 - Endofunctor: a functor that can lift objets of its own category, example: ``a list list``
 
-# 4 Natural transformation
+# 8 Natural transformation
 
 - You can have categories of categories 
 - Natural transformations are morphisms between categories
@@ -69,10 +69,7 @@ let maybeHead = function
     | head::tail -> Some head
 ```
 
-# 5 Product
-# 6 Coproduct
-
-# 7 Monoid
+# 9 Monoid
 
 - 3 properties for monoids 
   - category of a single element
@@ -85,7 +82,7 @@ let maybeHead = function
   - list through concat
   - ...
 
-# 8 Monad
+# 10 Monad
 
 - "A monad is a monoid in the category of endofunctor"
 - A list is:
@@ -104,7 +101,18 @@ let join = function
 - Given ``f: a -> b list`` and ``list: a list``, then binding ``bind f list`` returns ``b list``
 - So, the list is a monad (other examples, Maybe, Result, ...)
 
+# 11 Product
+
+- Tuple
+- Product type
+- Equivalent to class with fields in OOP 
+
+# 12 Coproduct
+
+- Enum
+- Sum type
 
 # To add (?)
 
-- injective, surjective & bijective on homset
+- Injective, surjective & bijective on homset
+- A functor allows to transform partial function into total function (Injectcive to Surjective)
