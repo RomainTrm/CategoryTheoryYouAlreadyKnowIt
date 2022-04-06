@@ -12,25 +12,25 @@ namespace CSharp.Intro
         public static Amount GetTotalAmountOfSuspiciousOperations(IReadOnlyList<AccountLine> lines)
         {
             var suspiciousOperations = GetSuspiciousOperations(lines);
-            return GetTotalAmount(suspiciousOperations);                        // # 1 Composition
+            return GetTotalAmount(suspiciousOperations);                        // Composition
         }
 
         private static IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => (line, amountState: EvaluateAmountState(line))) // # 3 Functor & map
+                .Select(line => (line, amountState: EvaluateAmountState(line))) // Functor & map
                                                                                 // Product
                 .Select(x => x.amountState == AmountState.Suspicious            // Where 
                     ? new List<AccountLine> { x.line }                          // Endofunctor
                     : new List<AccountLine>())
                 .SelectMany(x => x)                                             // Monad: Flatten aka Join
-                .ToList();                                                      // # 1 Composition
+                .ToList();                                                      // Composition
 
-        private static AmountState EvaluateAmountState(AccountLine line) =>             // # 2 Morphisms: Loss of information
+        private static AmountState EvaluateAmountState(AccountLine line) =>     // Morphisms: Loss of information
             line.Amount.Value > 10_000m ? AmountState.Suspicious : AmountState.Valid;
 
         private static Amount GetTotalAmount(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => line.Amount)                                    // # 3 Functor & map
+                .Select(line => line.Amount)                                    // Functor & map
                 .Aggregate(Amount.Zero, Amount.Add);                            // Monoid
     }
 

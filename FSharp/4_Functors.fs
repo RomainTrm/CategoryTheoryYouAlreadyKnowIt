@@ -1,6 +1,5 @@
 namespace Functors 
 
-open System
 open FsCheck.Xunit
   
 module Functors_Option = 

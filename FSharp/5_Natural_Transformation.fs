@@ -5,7 +5,7 @@ open Xunit
 
 let maybeHead = function
     | [] -> None
-    | head::tail -> Some head
+    | head::_ -> Some head
     
 [<Fact>]
 let transform_empty_list =

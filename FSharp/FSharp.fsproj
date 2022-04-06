@@ -10,13 +10,13 @@
     <ItemGroup>
         <Compile Include="1_Composition.fs" />
         <Compile Include="2_Isomorphisms.fs" />
-        <Compile Include="3_Functors.fs" />
-        <Compile Include="4_Natural_Transformation.fs" />
-        <Compile Include="5_Product.fs" />
-        <Compile Include="6_Coproduct.fs" />
-        <Compile Include="7_Monoid.fs" />
-        <Compile Include="8_Monad.fs" />
-        <Compile Include="8_Endofunctor.fs" />
+        <Compile Include="3_Monoid.fs" />
+        <Compile Include="4_Functors.fs" />
+        <Compile Include="5_Natural_Transformation.fs" />
+        <Compile Include="6_Endofunctor.fs" />
+        <Compile Include="7_Monad.fs" />
+        <Compile Include="8_Product.fs" />
+        <Compile Include="9_Coproduct.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

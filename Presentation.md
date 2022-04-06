@@ -8,13 +8,16 @@
 - Goal of the session: highlight main concepts through code examples
 
 # 1 Why ?
+
 - Interest is to understand mathematical concept before language implementation
 
 # 2 Business example 
+
 - Classical code review, refactor and enumerate some Categorical concepts
 - Kind of business code example, several concepts visible
 
 # 3 What's Category Theory 
+
 - Category: objects and morphisms (arrows) to link them
 
 # 4 Composition
@@ -42,8 +45,22 @@
   let reverse (a, b) = (b, a)
   reverse >> reverse = id
   ```
-  
-# 7 Functor
+
+# 7 Monoid
+
+- 3 properties for monoids
+  - category of a single element
+  - associativity
+  - neutral element
+- Examples :
+  - integers through addition
+  - integers through multiplication
+  - string through concat
+  - list through concat
+  - ...
+- Monoids compose: a product of monoid is also a monoid
+
+# 8 Functor
 
 - A functor is a "morphism" between two categories
 - It lift an objet *a* of a category __A__ into a category __F__, notation is __Fa__
@@ -58,7 +75,7 @@
   ```
 - Endofunctor: a functor that can lift objets of its own category, example: ``a list list``
 
-# 8 Natural transformation
+# 9 Natural transformation
 
 - You can have categories of categories 
 - Natural transformations are morphisms between categories
@@ -69,21 +86,16 @@ let maybeHead = function
     | head::tail -> Some head
 ```
 
-# 9 Monoid
+# 10 Endofunctor
 
-- 3 properties for monoids 
-  - category of a single element
-  - associativity
-  - neutral element
-- Examples :
-  - integers through addition
-  - integers through multiplication
-  - string through concat
-  - list through concat
-  - ...
-- Monoids compose: a product of monoid is also a monoid
+- A functor that can apply to itself is an endofunctor
+- All the Functors we are dealing with in functional programming are Endofunctors
+```C#
+public List<List<char>> Endofunctor(List<string> list) =>
+    list.Select(s => s.ToList());
+```
 
-# 10 Monad
+# 11 Monad
 
 - "A monad is a monoid in the category of endofunctor"
 - A list is:
@@ -102,13 +114,13 @@ let join = function
 - Given ``f: a -> b list`` and ``list: a list``, then binding ``bind f list`` returns ``b list``
 - So, the list is a monad (other examples, Maybe, Result, ...)
 
-# 11 Product
+# 12 Product
 
 - Tuple
 - Product type
 - Equivalent to class with fields in OOP 
 
-# 12 Coproduct
+# 13 Coproduct
 
 - Enum
 - Sum type
