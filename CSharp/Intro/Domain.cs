@@ -12,36 +12,34 @@ namespace CSharp.Intro
         public static Amount GetTotalAmountOfSuspiciousOperations(IReadOnlyList<AccountLine> lines)
         {
             var suspiciousOperations = GetSuspiciousOperations(lines);
-            return GetTotalAmount(suspiciousOperations);                        // Composition
+            return GetTotalAmount(suspiciousOperations);                            // Composition
         }
 
         private static IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => (line, amountState: EvaluateAmountState(line))) // Functor & map
-                                                                                // Product
-                .Select(x => x.amountState == AmountState.Suspicious            // Where 
-                    ? new List<AccountLine> { x.line }                          // Endofunctor
+                .Select(line => EvaluateAmountState(line) == AmountState.Suspicious // Where 
+                    ? new List<AccountLine> { line }                                // Endofunctor
                     : new List<AccountLine>())
-                .SelectMany(x => x)                                             // Monad: Flatten aka Join
-                .ToList();                                                      // Composition
+                .SelectMany(x => x)                                                 // Monad: Flatten aka Join
+                .ToList();                                                          // Composition
 
-        private static AmountState EvaluateAmountState(AccountLine line) =>     // Morphisms: Loss of information
+        private static AmountState EvaluateAmountState(AccountLine line) =>         // Morphisms: Loss of information
             line.Amount.Value > 10_000m ? AmountState.Suspicious : AmountState.Valid;
 
         private static Amount GetTotalAmount(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => line.Amount)                                    // Functor & map
-                .Aggregate(Amount.Zero, Amount.Add);                            // Monoid
+                .Select(line => line.Amount)                                        // Functor & map
+                .Aggregate(Amount.Zero, Amount.Add);                                // Monoid
     }
 
-    public record AccountLine(DateTime Date, Amount Amount);
+    public record AccountLine(DateTime Date, Amount Amount);                        // Product
     
-    public enum AmountState { Valid, Suspicious }
+    public enum AmountState { Valid, Suspicious }                                   // Coproduct
 
     public record Amount(decimal Value)
     {
         public static Amount Add(Amount left, Amount right) => new(left.Value + right.Value);
-        public static readonly Amount Zero = new(0m);                       // Monoid's Neutral element
+        public static readonly Amount Zero = new(0m);                           // Monoid's Neutral element
     }
     
     public class DomainTests
