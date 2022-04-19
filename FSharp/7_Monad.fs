@@ -22,28 +22,32 @@ let safeStringToInt (x : string) =
     | _ -> Error NotInteger
     
 let safeFilterPositive i = if i > 0 then Ok i else Error NotPositive
+
+// Does not compose, safeFilterPositive expect an int, received a Result<int, Error>
+//let safeStringIsPositiveInt = safeStringToInt >> safeFilterPositive >> intToString
+
     
 let map f result =
     match result with
     | Ok x -> Ok (f x)
     | Error e -> Error e
     
-let join (result : Result<Result<'a, 'b>, 'b>) =
-    match result with
-    | Ok r -> r
-    | Error e -> Error e
-    
-//let bind f = function
-//    | Ok r -> f r 
-//    | Error e -> Error e
-    
-let bind f = map f >> join
-
 // Does not compose, intToString expect an int, received a Result<int, Error>
 //let safeStringIsPositiveInt = safeStringToInt >> map safeFilterPositive >> map intToString
 
+
+let join (result : Result<Result<'a, 'b>, 'b>) =
+    failwith "todo"    
+
 //let safeStringIsPositiveInt = safeStringToInt >> map safeFilterPositive >> join >> map intToString
-let safeFilterPositiveString = safeStringToInt >> bind safeFilterPositive >> map intToString
+    
+    
+let bind f = map f >> join
+//let safeFilterPositiveString = safeStringToInt >> bind safeFilterPositive >> map intToString
+
+
+//let (>>=) f g = f >> bind g
+//let safeFilterPositiveString = safeStringToInt >>= safeFilterPositive >> map intToString
 
 
 

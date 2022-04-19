@@ -35,11 +35,13 @@ namespace CSharp
 
         public static Either<TLeft, TRight> JoinLeft<TLeft, TRight>(
             this Either<Either<TLeft, TRight>, TRight> either) =>
-            throw new System.NotImplementedException();
+            either.Match(
+                left => left,
+                right => Either<TLeft, TRight>.Right(right));
 
         public static Either<TLeftOut, TRight> BindLeft<TLeftIn, TLeftOut, TRight>(
             this Either<TLeftIn, TRight> either, 
             Func<TLeftIn, Either<TLeftOut, TRight>> morphism) =>
-            throw new System.NotImplementedException();
+            either.MapLeft(morphism).JoinLeft();
     }
 }
