@@ -40,7 +40,9 @@ namespace CSharp
 
         public Either<TLeftOut, TRight> MapLeft<TLeftIn, TLeftOut, TRight>(
             Either<TLeftIn, TRight> either, Func<TLeftIn, TLeftOut> morphism) =>
-            throw new System.NotImplementedException();
+            either.Match(
+                left => Either<TLeftOut, TRight>.Left(morphism(left)), 
+                right => Either<TLeftOut, TRight>.Right(right));
         
         public Either<string, Error> SafeIsPositiveString(int value) => 
             MapLeft(SafeIsPositive(value), IntToString);
