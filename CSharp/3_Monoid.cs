@@ -11,20 +11,16 @@ namespace CSharp
             Valid, Invalid
         }
 
-        public static readonly Validation NeutralElement = Validation.Valid;
+        public static Validation NeutralElement => throw new System.NotImplementedException();
 
-        public static Validation Fold(Validation left, Validation right) =>
-            (left, right) switch
-            {
-                (Validation.Valid, Validation.Valid) => Validation.Valid,
-                _ => Validation.Invalid
-            };
+        public static Validation Compose(Validation left, Validation right) =>
+            throw new System.NotImplementedException();
 
         [Fact]
         public void Identity()
         {
             Prop.ForAll(Arb.From<Validation>(), 
-                v => Fold(NeutralElement, v) == v)
+                v => Compose(NeutralElement, v) == v)
                 .QuickCheckThrowOnFailure();
         }
 
@@ -34,8 +30,8 @@ namespace CSharp
             Prop.ForAll(Arb.From<Validation>(), Arb.From<Validation>(), Arb.From<Validation>(),
                     (x, y, z) =>
                     {
-                        var left = Fold(Fold(x, y), z);
-                        var right = Fold(x, Fold(y, z));
+                        var left = Compose(Compose(x, y), z);
+                        var right = Compose(x, Compose(y, z));
                         return left == right;
                     })
                 .QuickCheckThrowOnFailure();

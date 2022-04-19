@@ -9,7 +9,7 @@ namespace CSharp
     public class Natural_Transformation
     {
         public static Maybe<T> MaybeHead<T>(List<T> list) =>
-            list.Any() ? Maybe<T>.Some(list.First()) : Maybe<T>.None();
+            throw new System.NotImplementedException();
 
         [Fact]
         public void Transform_empty_list()

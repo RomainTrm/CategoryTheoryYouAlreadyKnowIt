@@ -48,15 +48,26 @@ namespace CSharp.Intro
         public void AmountEquals()
         {
             Assert.True(new Amount(3m) == new Amount(3m));
-            
-            Amount Id(Amount amount) => Amount.Add(amount, Amount.Zero);
-            Assert.True(new Amount(8m) == Id(new Amount(8m)));
         }
         
         [Fact]
         public void CaseOfEmptyList()
         {
             var lines = new List<AccountLine>();
+            var total = Domain.GetTotalAmountOfSuspiciousOperations(lines);
+            Assert.Equal(total, Amount.Zero);
+        }
+
+        [Fact]
+        public void CaseOfNoSuspicious()
+        {
+            var lines = new List<AccountLine>
+            {
+                new (DateTime.Today, new Amount(5_000m)),
+                new (DateTime.Today, new Amount(1_000.1m)),
+                new (DateTime.Today, new Amount(9_000m))
+            };
+            
             var total = Domain.GetTotalAmountOfSuspiciousOperations(lines);
             Assert.Equal(total, Amount.Zero);
         }

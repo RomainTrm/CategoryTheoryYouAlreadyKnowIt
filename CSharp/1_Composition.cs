@@ -6,6 +6,6 @@ namespace CSharp
 
         private bool g(int value) => value % 2 == 0;
 
-        public bool g_after_f(decimal value) => g(f(value));
+        public bool g_after_f(decimal value) => throw new System.NotImplementedException();
     }
 }

@@ -8,9 +8,7 @@ namespace CSharp
     public class Functors
     {
         public static Maybe<TOut> Map<TValue, TOut>(Maybe<TValue> maybe, Func<TValue, TOut> morphism) =>
-            maybe.Match(
-                value => Maybe<TOut>.Some(morphism(value)),
-                Maybe<TOut>.None);
+            throw new System.NotImplementedException();
 
         [Fact]
         public void PreserveStructure()
@@ -42,9 +40,7 @@ namespace CSharp
 
         public Either<TLeftOut, TRight> MapLeft<TLeftIn, TLeftOut, TRight>(
             Either<TLeftIn, TRight> either, Func<TLeftIn, TLeftOut> morphism) =>
-            either.Match(
-                left => Either<TLeftOut, TRight>.Left(morphism(left)), 
-                right => Either<TLeftOut, TRight>.Right(right));
+            throw new System.NotImplementedException();
         
         public Either<string, Error> SafeIsPositiveString(int value) => 
             MapLeft(SafeIsPositive(value), IntToString);

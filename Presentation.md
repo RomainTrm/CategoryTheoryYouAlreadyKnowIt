@@ -73,7 +73,8 @@
   |    |     |
   a ---f---> b
   ```
-- Endofunctor: a functor that can lift objets of its own category, example: ``a list list``
+- Sometimes used by functional programmers to transform non-total (partial) functions to total (and pure) functions (Ex: ``either`` or ``result``)  
+- Endofunctor: a functor that can lift objets of its own category, example: ``a list list``  
 
 # 9 Natural transformation
 
@@ -128,4 +129,3 @@ let join = function
 # To add (?)
 
 - Injective, surjective & bijective on homset
-- A functor allows to transform partial function into total function (Injectcive to Surjective)
