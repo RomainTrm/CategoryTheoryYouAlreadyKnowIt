@@ -14,6 +14,11 @@ let filterPositiveString = stringToInt >> filterPositive >> intToString // compo
 
 
 
+
+
+
+
+
 type Error = NotInteger | NotPositive
 
 let safeStringToInt (x : string) =
@@ -35,19 +40,23 @@ let map f result =
 // Does not compose, intToString expect an int, received a Result<int, Error>
 //let safeStringIsPositiveInt = safeStringToInt >> map safeFilterPositive >> map intToString
 
-
 let join (result : Result<Result<'a, 'b>, 'b>) =
-    failwith "todo"    
+    match result with
+    | Ok ok -> ok
+    | Error error -> Error error
 
 //let safeStringIsPositiveInt = safeStringToInt >> map safeFilterPositive >> join >> map intToString
     
     
-let bind f = map f >> join
+//let bind f = map f >> join
+let bind f = function
+    | Ok x -> f x
+    | Error error -> Error error
 //let safeFilterPositiveString = safeStringToInt >> bind safeFilterPositive >> map intToString
 
 
-//let (>>=) f g = f >> bind g
-//let safeFilterPositiveString = safeStringToInt >>= safeFilterPositive >> map intToString
+let (>>=) f g = f >> bind g
+let safeFilterPositiveString = safeStringToInt >>= safeFilterPositive >> map intToString
 
 
 

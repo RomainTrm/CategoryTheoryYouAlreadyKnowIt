@@ -8,7 +8,9 @@ namespace CSharp
     public class Functors
     {
         public static Maybe<TOut> Map<TValue, TOut>(Maybe<TValue> maybe, Func<TValue, TOut> morphism) =>
-            throw new System.NotImplementedException();
+            maybe.Match(
+                value => Maybe<TOut>.Some(morphism(value)), 
+                () => Maybe<TOut>.None());
 
         [Fact]
         public void PreserveStructure()

@@ -9,7 +9,7 @@ namespace CSharp
     public class Natural_Transformation
     {
         public static Maybe<T> MaybeHead<T>(List<T> list) =>
-            throw new System.NotImplementedException();
+            list.Any() ? Maybe<T>.Some(list.First()) : Maybe<T>.None();
 
         [Fact]
         public void Transform_empty_list()
@@ -23,7 +23,8 @@ namespace CSharp
             Prop.ForAll(
                     Arb.From<int>(),
                     Arb.From<List<int>>(),
-                    (head, tail) => MaybeHead(tail.Prepend(head).ToList()).Equals(Maybe<int>.Some(head)))
+                    (head, tail) => 
+                        MaybeHead(tail.Prepend(head).ToList()).Equals(Maybe<int>.Some(head)))
                 .QuickCheckThrowOnFailure();
         }
     }

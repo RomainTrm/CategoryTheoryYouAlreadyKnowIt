@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Xunit;
 // ReSharper disable All
@@ -17,10 +16,11 @@ namespace CSharp.Intro
 
         private static IReadOnlyList<AccountLine> GetSuspiciousOperations(IReadOnlyList<AccountLine> lines) =>
             lines
-                .Select(line => EvaluateAmountState(line) == AmountState.Suspicious 
-                    ? new List<AccountLine> { line }                                
+                .Select(line => EvaluateAmountState(line) == AmountState.Suspicious
+                    ? new List<AccountLine>{ line }
                     : new List<AccountLine>())
-                .SelectMany(x => x)                                                 
+                .SelectMany(x => x)
+                // Previous Select & SelectMany equivalent to : .Where(line => EvaluateAmountState(line) == AmountState.Suspicious)
                 .ToList();                                                          
 
         private static AmountState EvaluateAmountState(AccountLine line) =>         

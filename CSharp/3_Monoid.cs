@@ -6,21 +6,43 @@ namespace CSharp
 {
     public class Monoid 
     {
-        public enum Validation 
+        public enum Validation { Valid, Invalid }
+
+        public static Validation NeutralElement => Validation.Valid;
+
+        public static Validation ComposeValidation(Validation left, Validation right) =>
+            (left, right) switch
+            {
+                (Validation.Valid, Validation.Valid) => Validation.Valid,
+                _ => Validation.Invalid
+            };
+
+        
+        public record Amount(decimal Value)
         {
-            Valid, Invalid
+            public static Amount Add(Amount left, Amount right) => new(left.Value + right.Value);
+            public static readonly Amount Zero = new(0m);                           
         }
 
-        public static Validation NeutralElement => throw new System.NotImplementedException();
+        public record ValidableAmount(Validation Validation, Amount Amount)
+        {
+            public static ValidableAmount Neutral => new ValidableAmount(NeutralElement, Amount.Zero);
 
-        public static Validation Compose(Validation left, Validation right) =>
-            throw new System.NotImplementedException();
-
+            public static ValidableAmount Compose(ValidableAmount left, ValidableAmount right) =>
+                new ValidableAmount(
+                    ComposeValidation(left.Validation, right.Validation), 
+                    Amount.Add(left.Amount, right.Amount));
+        }
+        
         [Fact]
         public void Identity()
         {
-            Prop.ForAll(Arb.From<Validation>(), 
-                v => Compose(NeutralElement, v) == v)
+            Prop.ForAll(Arb.From<Validation>(), Arb.From<decimal>(), 
+                (v, d) =>
+                {
+                    var validableAmount = new ValidableAmount(v, new Amount(d));
+                    return ValidableAmount.Compose(ValidableAmount.Neutral, validableAmount) == validableAmount;
+                })
                 .QuickCheckThrowOnFailure();
         }
 
@@ -30,8 +52,8 @@ namespace CSharp
             Prop.ForAll(Arb.From<Validation>(), Arb.From<Validation>(), Arb.From<Validation>(),
                     (x, y, z) =>
                     {
-                        var left = Compose(Compose(x, y), z);
-                        var right = Compose(x, Compose(y, z));
+                        var left = ComposeValidation(ComposeValidation(x, y), z);
+                        var right = ComposeValidation(x, ComposeValidation(y, z));
                         return left == right;
                     })
                 .QuickCheckThrowOnFailure();

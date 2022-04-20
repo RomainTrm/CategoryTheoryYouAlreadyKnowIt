@@ -129,3 +129,10 @@ let join = function
 # To add (?)
 
 - Injective, surjective & bijective on homset
+
+
+
+
+
+
+Railway programming - Scott Wlaschin - FSharpforfunandprofit
